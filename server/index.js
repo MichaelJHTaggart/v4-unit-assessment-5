@@ -3,6 +3,7 @@ const express = require('express'),
     userCtrl = require('./controllers/user'),
     postCtrl = require('./controllers/posts')
 const massive = require('massive')
+const session = require('express-session')
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 
 
@@ -12,7 +13,7 @@ app.use(express.json());
 app.use(
     session({
         resave: false,
-        saveUnitiialized: true,
+        saveUninitialized: true,
         secret: SESSION_SECRET,
         cookie: { maxAge: 1000 * 60 * 60 * 24 },
     })
@@ -43,5 +44,3 @@ massive({
         console.log(`Server ready on port ${SERVER_PORT}`)
     )
 })
-
-app.listen(SERVER_PORT, () => console.log(`running on ${SERVER_PORT}`));
